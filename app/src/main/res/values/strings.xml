@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Fegusta RecyclerView</string>
+    <string name="nome_do_jogo">Nome do jogo</string>
+    <string name="produtora_do_jogo">Produtora do jogo</string>
 </resources>

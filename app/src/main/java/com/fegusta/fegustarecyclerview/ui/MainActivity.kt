@@ -20,8 +20,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         iniciarRecyclerView()
 
+        insertToolbar()
+
         var buttomCadastrarJogo =findViewById<FloatingActionButton>(R.id.butotonCadastrarJogo)
         buttomCadastrarJogo.setOnClickListener(this)
+    }
+
+    private fun insertToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar!!.title = "Meu App Jogos"
     }
 
     override fun onClick(v: View?) {

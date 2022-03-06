@@ -28,7 +28,15 @@ class JogoRepository(context: Context) {
 
     }
 
-    fun delete(id: Int){
+    fun delete(id: Int) : Int{
+        val db = dbHelper.writableDatabase
+        val selection = "${DatabaseDefinitions.Jogo.Columns.ID} = ?"
+
+        val selectionArgs = arrayOf(id.toString())
+
+        val deletedRows = db.delete(DatabaseDefinitions.Jogo.TABLE_NAME, selection, selectionArgs)
+
+        return deletedRows
 
     }
 

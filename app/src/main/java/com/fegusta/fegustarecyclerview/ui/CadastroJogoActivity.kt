@@ -15,15 +15,25 @@ import com.google.android.material.textfield.TextInputLayout
 
 class CadastroJogoActivity : AppCompatActivity() {
 
+    private lateinit var adapter: ArrayAdapter<CharSequence>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro_jogo)
+
+        preencherSpinerConsole()
 
         insertToolbar()
 
         if(intent.getStringExtra("operacao") != Constants.OPERACAO_NOVO_CADASTRO){
             preencherFormulatio()
         }
+    }
+
+    private fun preencherSpinerConsole() {
+        adapter = ArrayAdapter.createFromResource(this, R.array.consoles,
+            android.R.layout.simple_spinner_dropdown_item)
+        findViewById<Spinner>(R.id.spinnerConsole).adapter = adapter
     }
 
     private fun preencherFormulatio() {
@@ -36,6 +46,10 @@ class CadastroJogoActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.editTextNomeDoJogo).setText(jogo.titulo)
         findViewById<TextView>(R.id.editTextProdutoraDoJogo).setText(jogo.produtora)
+
+        val position = adapter.getPosition(jogo.console)
+        findViewById<Spinner>(R.id.spinnerConsole).setSelection(position)
+
         findViewById<RatingBar>(R.id.ratingBarNotaDoJogo).rating = jogo.notaJogo
         findViewById<CheckBox>(R.id.checkBoxZerado).isChecked = jogo.zerado
 

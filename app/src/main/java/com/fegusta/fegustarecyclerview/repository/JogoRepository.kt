@@ -61,7 +61,35 @@ class JogoRepository(context: Context) {
         return jogos
     }
 
-    fun getJogo(id: Int){
+    fun getJogo(id: Int): Jogo{
+        val db = dbHelper.readableDatabase
+
+        val projection = arrayOf(DatabaseDefinitions.Jogo.Columns.ID,
+            DatabaseDefinitions.Jogo.Columns.TITULO,
+            DatabaseDefinitions.Jogo.Columns.PRODUTORA,
+            DatabaseDefinitions.Jogo.Columns.NOTA,
+            DatabaseDefinitions.Jogo.Columns.CONSOLE,
+            DatabaseDefinitions.Jogo.Columns.ZERADO)
+
+        val selection = "${DatabaseDefinitions.Jogo.Columns.ID} = ?"
+
+        val selectionArgs = arrayOf(id.toString())
+
+        val cursor = db.query(DatabaseDefinitions.Jogo.TABLE_NAME, projection,
+            selection,selectionArgs,null,null,null)
+
+        var jogo = Jogo()
+
+        if (cursor != null){
+            cursor.moveToNext()
+            jogo.id = cursor.getInt(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.ID))
+            jogo.titulo = cursor.getString(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.TITULO))
+            jogo.produtora = cursor.getString(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.CONSOLE))
+            jogo.notaJogo = cursor.getFloat(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.NOTA))
+            jogo.console = cursor.getString(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.PRODUTORA))
+            jogo.zerado = cursor.getInt(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.ZERADO)) == 1
+        }
+        return jogo
 
     }
 }

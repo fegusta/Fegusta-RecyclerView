@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.fegusta.fegustarecyclerview.R
 import com.fegusta.fegustarecyclerview.model.Jogo
@@ -31,7 +30,7 @@ class JogosAdapter(var listaJogos: ArrayList<Jogo>): RecyclerView.Adapter<JogosA
     class JogoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         fun bind(jogo: Jogo) {
-            itemView.findViewById<TextView>(R.id.textNomeDoJogo).text = jogo.nomeJogo
+            itemView.findViewById<TextView>(R.id.textNomeDoJogo).text = jogo.titulo
             itemView.findViewById<TextView>(R.id.textConsole).text = jogo.console
             itemView.findViewById<RatingBar>(R.id.notaJogo).rating = jogo.notaJogo
         }

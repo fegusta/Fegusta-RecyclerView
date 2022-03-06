@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,null, DATABASE_VERSION) {
-    override fun onCreate(db: SQLiteDatabase?) {
-        TODO("Not yet implemented")
+    override fun onCreate(db: SQLiteDatabase) {
+        db.execSQL(CREATE_TABLE_JOGO)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

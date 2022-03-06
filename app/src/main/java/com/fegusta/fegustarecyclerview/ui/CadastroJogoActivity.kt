@@ -61,7 +61,29 @@ class CadastroJogoActivity : AppCompatActivity() {
 
         val repo = JogoRepository(this)
         val id = repo.save(jogo)
-        Toast.makeText(this,"SALVOOOO ${id}", Toast.LENGTH_SHORT).show()
+        if (id > 0) {
+            val builderDialog = AlertDialog.Builder(this)
+            builderDialog.setTitle("Sucesso!")
+            builderDialog.setMessage("Seu jogo foi gravado com sucesso!\n\nDeseja cadastrar outro jogo?")
+            builderDialog.setIcon(R.drawable.ic_baseline_done_24)
+
+            builderDialog.setPositiveButton("Sim") { _, _ ->
+                limparFormulario()
+            }
+
+            builderDialog.setNegativeButton("Não") { _, _ ->
+                onBackPressed()
+            }
+
+            builderDialog.show()
+        }
+    }
+
+    private fun limparFormulario() {
+        findViewById<TextView>(R.id.editTextNomeDoJogo).setText("")
+        findViewById<TextView>(R.id.editTextProdutoraDoJogo).setText("")
+        findViewById<CheckBox>(R.id.checkBoxZerado).isChecked = false
+        findViewById<TextView>(R.id.editTextNomeDoJogo).requestFocus()
     }
 
     private fun alert() {

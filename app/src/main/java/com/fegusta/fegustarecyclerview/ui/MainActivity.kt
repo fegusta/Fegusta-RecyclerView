@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fegusta.fegustarecyclerview.R
 import com.fegusta.fegustarecyclerview.adapter.JogosAdapter
 import com.fegusta.fegustarecyclerview.datasource.DataSource
+import com.fegusta.fegustarecyclerview.repository.JogoRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun iniciarRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewJogos)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = JogosAdapter(DataSource.getJogos())
+        val repo = JogoRepository(this)
+        recyclerView.adapter = JogosAdapter(repo.getJogos())
     }
 
 }

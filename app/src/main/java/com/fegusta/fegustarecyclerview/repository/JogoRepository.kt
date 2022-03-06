@@ -32,8 +32,28 @@ class JogoRepository(context: Context) {
 
     }
 
-    fun getJogos(){
+    fun getJogos() : ArrayList<Jogo>{
+        val db = dbHelper.readableDatabase
 
+        val cursor = db.query(DatabaseDefinitions.Jogo.TABLE_NAME, null,
+            null,null,null,null,null)
+
+        var jogos = ArrayList<Jogo>()
+
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                var jogo = Jogo(
+                    cursor.getInt(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.ID)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.TITULO)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.PRODUTORA)),
+                    cursor.getFloat(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.NOTA)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.CONSOLE)),
+                    cursor.getInt(cursor.getColumnIndex(DatabaseDefinitions.Jogo.Columns.ID)) == 1
+                )
+                jogos.add(jogo)
+            }
+        }
+        return jogos
     }
 
     fun getJogo(id: Int){

@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun iniciarRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewJogos)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = JogosAdapter(DataSource.getJogos())
     }
 

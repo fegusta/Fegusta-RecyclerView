@@ -8,11 +8,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.fegusta.fegustarecyclerview.R
+import com.google.android.material.textfield.TextInputLayout
 
 class CadastroJogoActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro_jogo)
+
 
         insertToolbar()
     }
@@ -34,7 +37,9 @@ class CadastroJogoActivity : AppCompatActivity() {
                 alert()
             }
             R.id.menu_salvar -> {
-                Toast.makeText(this,"Salvar",Toast.LENGTH_SHORT).show()
+                if(validarFormulario()){
+                    Toast.makeText(this,"salvar",Toast.LENGTH_SHORT).show()
+                }
             }
             else -> {
                 onBackPressed()
@@ -58,5 +63,28 @@ class CadastroJogoActivity : AppCompatActivity() {
         }
 
         builderDialog.show()
+    }
+
+    private fun validarFormulario() : Boolean {
+
+        var valida = true
+
+        if (findViewById<EditText>(R.id.editTextNomeDoJogo).length() < 3){
+            findViewById<TextInputLayout>(R.id.tilNomedoJogo).error = getString(R.string.msg_valida_cadastro_titulo_jogo)
+            valida = false
+            return valida
+        } else {
+            findViewById<TextInputLayout>(R.id.tilNomedoJogo).error = null
+        }
+
+        if (findViewById<EditText>(R.id.editTextProdutoraDoJogo).length() < 3){
+            findViewById<TextInputLayout>(R.id.tilProdutoradoJogo).error = getString(R.string.msg_valida_cadastroJogo_form_produtora_jogo)
+            valida = false
+            return valida
+        } else {
+            findViewById<TextInputLayout>(R.id.tilProdutoradoJogo).error = null
+        }
+
+        return valida
     }
 }

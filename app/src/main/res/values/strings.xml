@@ -5,6 +5,8 @@
     <string name="console">Console:</string>
     <string name="nota_do_jogo">Nota do jogo</string>
     <string name="zerado">Zerado</string>
+    <string name="msg_valida_cadastro_titulo_jogo">Título do jogo é obrigatório</string>
+    <string name="msg_valida_cadastroJogo_form_produtora_jogo">Produtora do jogo é obrigatório!</string>
 
     <string-array name="consoles">
         <item>Super Nintendo</item>

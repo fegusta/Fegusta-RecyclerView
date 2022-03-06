@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.fegusta.fegustarecyclerview.R
 
 class CadastroJogoActivity : AppCompatActivity() {
@@ -29,7 +31,7 @@ class CadastroJogoActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_cancelar -> {
-                Toast.makeText(this,"Cancelar",Toast.LENGTH_SHORT).show()
+                alert()
             }
             R.id.menu_salvar -> {
                 Toast.makeText(this,"Salvar",Toast.LENGTH_SHORT).show()
@@ -39,5 +41,22 @@ class CadastroJogoActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun alert() {
+        var builderDialog = AlertDialog.Builder(this)
+        builderDialog.setTitle("Cancelar Cadastro")
+        builderDialog.setMessage("Tem certeza que deseja cancelar o cadastro do seu jogo?")
+        builderDialog.setIcon(R.drawable.ic_baseline_help_outline_red__24)
+
+        builderDialog.setPositiveButton("Sim") {_,_ ->
+            onBackPressed()
+        }
+
+        builderDialog.setNegativeButton("Não") {_,_ ->
+            findViewById<EditText>(R.id.editTextNomeDoJogo).requestFocus()
+        }
+
+        builderDialog.show()
     }
 }

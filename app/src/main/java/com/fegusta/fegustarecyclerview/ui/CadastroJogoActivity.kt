@@ -16,6 +16,8 @@ import com.google.android.material.textfield.TextInputLayout
 class CadastroJogoActivity : AppCompatActivity() {
 
     private lateinit var adapter: ArrayAdapter<CharSequence>
+    private lateinit var operacao: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +27,9 @@ class CadastroJogoActivity : AppCompatActivity() {
 
         insertToolbar()
 
-        if(intent.getStringExtra("operacao") != Constants.OPERACAO_NOVO_CADASTRO){
+        operacao = intent.getStringExtra("operacao")!!
+
+        if(operacao != Constants.OPERACAO_NOVO_CADASTRO){
             preencherFormulatio()
         }
     }
@@ -73,8 +77,10 @@ class CadastroJogoActivity : AppCompatActivity() {
                 alert()
             }
             R.id.menu_salvar -> {
-                if(validarFormulario()){
+                if(validarFormulario() && operacao == Constants.OPERACAO_NOVO_CADASTRO){
                     salvarJogo()
+                } else {
+                    atualizarJogo()
                 }
             }
             else -> {
@@ -82,6 +88,32 @@ class CadastroJogoActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun atualizarJogo() {
+        val jogo = Jogo(
+                id = intent.getIntExtra("id",0),
+                titulo = findViewById<TextView>(R.id.editTextNomeDoJogo).text.toString(),
+                produtora = findViewById<TextView>(R.id.editTextProdutoraDoJogo).text.toString(),
+                notaJogo = findViewById<RatingBar>(R.id.ratingBarNotaDoJogo).rating,
+                console = findViewById<Spinner>(R.id.spinnerConsole).selectedItem.toString(),
+                zerado = findViewById<CheckBox>(R.id.checkBoxZerado).isChecked,
+        )
+
+        val repo = JogoRepository(this)
+        val count = repo.update(jogo)
+        if (count > 0) {
+            val builderDialog = AlertDialog.Builder(this)
+            builderDialog.setTitle("Sucesso!")
+            builderDialog.setMessage("Seu jogo foi atualizado com sucesso!")
+            builderDialog.setIcon(R.drawable.ic_baseline_done_24)
+
+            builderDialog.setPositiveButton("OK") { _, _ ->
+                onBackPressed()
+            }
+
+            builderDialog.show()
+        }
     }
 
     private fun salvarJogo() {

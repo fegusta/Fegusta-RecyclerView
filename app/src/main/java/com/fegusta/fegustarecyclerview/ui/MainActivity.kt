@@ -19,12 +19,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        iniciarRecyclerView()
+
 
         insertToolbar()
 
         var buttomCadastrarJogo =findViewById<FloatingActionButton>(R.id.butotonCadastrarJogo)
         buttomCadastrarJogo.setOnClickListener(this)
+    }
+
+    override fun onResume() {
+        iniciarRecyclerView()
+        super.onResume()
     }
 
     private fun insertToolbar() {

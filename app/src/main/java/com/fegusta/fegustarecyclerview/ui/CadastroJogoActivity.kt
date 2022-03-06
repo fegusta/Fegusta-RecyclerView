@@ -52,8 +52,8 @@ class CadastroJogoActivity : AppCompatActivity() {
 
     private fun salvarJogo() {
         val jogo = Jogo(
-            titulo = findViewById<TextView>(R.id.editTextNomeDoJogo).toString(),
-            produtora = findViewById<TextView>(R.id.editTextProdutoraDoJogo).toString(),
+            titulo = findViewById<TextView>(R.id.editTextNomeDoJogo).text.toString(),
+            produtora = findViewById<TextView>(R.id.editTextProdutoraDoJogo).text.toString(),
             notaJogo = findViewById<RatingBar>(R.id.ratingBarNotaDoJogo).rating,
             console = findViewById<Spinner>(R.id.spinnerConsole).selectedItem.toString(),
             zerado = findViewById<CheckBox>(R.id.checkBoxZerado).isChecked,

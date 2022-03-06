@@ -10,7 +10,7 @@ class JogoRepository(context: Context) {
 
     private val dbHelper = DatabaseHelper(context)
 
-    fun save(jogo: Jogo){
+    fun save(jogo: Jogo) : Int {
         val db = dbHelper.writableDatabase
 
         val valores = ContentValues()
@@ -20,7 +20,8 @@ class JogoRepository(context: Context) {
         valores.put(DatabaseDefinitions.Jogo.Columns.CONSOLE, jogo.console)
         valores.put(DatabaseDefinitions.Jogo.Columns.ZERADO, jogo.zerado)
 
-        db.insert(DatabaseDefinitions.Jogo.TABLE_NAME, null,valores)
+        val id = db.insert(DatabaseDefinitions.Jogo.TABLE_NAME, null,valores)
+        return id.toInt()
     }
 
     fun update(jogo: Jogo) {

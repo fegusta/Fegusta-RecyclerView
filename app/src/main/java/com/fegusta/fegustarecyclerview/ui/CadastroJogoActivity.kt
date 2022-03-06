@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.fegusta.fegustarecyclerview.R
+import com.fegusta.fegustarecyclerview.datasource.DatabaseDefinitions
+import com.fegusta.fegustarecyclerview.model.Jogo
+import com.fegusta.fegustarecyclerview.repository.JogoRepository
 import com.google.android.material.textfield.TextInputLayout
 
 class CadastroJogoActivity : AppCompatActivity() {
@@ -38,7 +40,7 @@ class CadastroJogoActivity : AppCompatActivity() {
             }
             R.id.menu_salvar -> {
                 if(validarFormulario()){
-                    Toast.makeText(this,"salvar",Toast.LENGTH_SHORT).show()
+                    salvarJogo()
                 }
             }
             else -> {
@@ -46,6 +48,20 @@ class CadastroJogoActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun salvarJogo() {
+        val jogo = Jogo(
+            titulo = findViewById<TextView>(R.id.editTextNomeDoJogo).toString(),
+            produtora = findViewById<TextView>(R.id.editTextProdutoraDoJogo).toString(),
+            notaJogo = findViewById<RatingBar>(R.id.ratingBarNotaDoJogo).rating,
+            console = findViewById<Spinner>(R.id.spinnerConsole).selectedItem.toString(),
+            zerado = findViewById<CheckBox>(R.id.checkBoxZerado).isChecked,
+        )
+
+        val repo = JogoRepository(this)
+        val id = repo.save(jogo)
+        Toast.makeText(this,"SALVOOOO ${id}", Toast.LENGTH_SHORT).show()
     }
 
     private fun alert() {

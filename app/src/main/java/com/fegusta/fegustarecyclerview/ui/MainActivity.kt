@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fegusta.fegustarecyclerview.R
 import com.fegusta.fegustarecyclerview.adapter.JogosAdapter
+import com.fegusta.fegustarecyclerview.constants.Constants
 import com.fegusta.fegustarecyclerview.datasource.DataSource
 import com.fegusta.fegustarecyclerview.repository.JogoRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if(v!!.id == R.id.butotonCadastrarJogo){
             val intent = Intent(this, CadastroJogoActivity::class.java)
+            intent.putExtra("operacao", Constants.OPERACAO_NOVO_CADASTRO)
             startActivity(intent)
         }
     }

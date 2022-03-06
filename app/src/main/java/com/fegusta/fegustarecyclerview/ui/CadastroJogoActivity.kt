@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.fegusta.fegustarecyclerview.R
+import com.fegusta.fegustarecyclerview.constants.Constants
 import com.fegusta.fegustarecyclerview.datasource.DatabaseDefinitions
 import com.fegusta.fegustarecyclerview.model.Jogo
 import com.fegusta.fegustarecyclerview.repository.JogoRepository
@@ -18,13 +19,32 @@ class CadastroJogoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro_jogo)
 
-
         insertToolbar()
+
+        if(intent.getStringExtra("operacao") != Constants.OPERACAO_NOVO_CADASTRO){
+            preencherFormulatio()
+        }
+    }
+
+    private fun preencherFormulatio() {
+        var jogo = Jogo()
+        var id = intent.getIntExtra("id",0)
+
+        val repository = JogoRepository(this)
+
+        jogo = repository.getJogo(id)
+
+        findViewById<TextView>(R.id.editTextNomeDoJogo).setText(jogo.titulo)
+        findViewById<TextView>(R.id.editTextProdutoraDoJogo).setText(jogo.produtora)
+        findViewById<RatingBar>(R.id.ratingBarNotaDoJogo).rating = jogo.notaJogo
+        findViewById<CheckBox>(R.id.checkBoxZerado).isChecked = jogo.zerado
+
+
     }
 
     private fun insertToolbar() {
         setSupportActionBar(findViewById(R.id.toolbar))
-        supportActionBar!!.title = "Novo Jogo"
+        supportActionBar!!.title = intent.getStringExtra("operacao")
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 

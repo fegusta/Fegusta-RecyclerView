@@ -24,8 +24,28 @@ class JogoRepository(context: Context) {
         return id.toInt()
     }
 
-    fun update(jogo: Jogo) {
+    fun update(jogo: Jogo) : Int {
+        val db = dbHelper.writableDatabase
 
+        val valores = ContentValues().apply {
+            put(DatabaseDefinitions.Jogo.Columns.TITULO, jogo.titulo)
+            put(DatabaseDefinitions.Jogo.Columns.PRODUTORA, jogo.produtora)
+            put(DatabaseDefinitions.Jogo.Columns.NOTA, jogo.notaJogo)
+            put(DatabaseDefinitions.Jogo.Columns.CONSOLE, jogo.console)
+            put(DatabaseDefinitions.Jogo.Columns.ZERADO, jogo.zerado)
+        }
+
+        val selection = "${DatabaseDefinitions.Jogo.Columns.ID} = ?"
+
+        val selectionArgs = arrayOf(jogo.id.toString())
+
+        val count = db.update(
+                DatabaseDefinitions.Jogo.TABLE_NAME,
+                valores,
+                selection,
+                selectionArgs
+        )
+        return count
     }
 
     fun delete(id: Int) : Int{
